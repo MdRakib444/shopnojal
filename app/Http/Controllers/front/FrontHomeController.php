@@ -219,4 +219,124 @@ class FrontHomeController extends Controller
 
     	return view('front.productPage.ghee', compact('product_ghee'));
     }
+
+    public function tomatoSauces(){
+
+    	$subcategorySlug = 'tomato-sauces';
+
+    	$product_tomatoSauces = Product::select('products.*', 'sub_categories.name as subcategory_name')
+    					->join('sub_categories', 'products.sub_category_id', '=', 'sub_categories.id')
+    					->where('sub_categories.slug', $subcategorySlug)
+    					->get();
+
+    	return view('front.productPage.tomato_sauces', compact('product_tomatoSauces'));
+    }
+
+    public function cookingSauces(){
+
+    	$subcategorySlug = 'cooking-sauces';
+
+    	$product_cookingSauces = Product::select('products.*', 'sub_categories.name as subcategory_name')
+    					->join('sub_categories', 'products.sub_category_id', '=', 'sub_categories.id')
+    					->where('sub_categories.slug', $subcategorySlug)
+    					->get();
+
+    	return view('front.productPage.cooking_sauces', compact('product_cookingSauces'));
+    }
+
+    public function pickles(){
+
+    	$subcategorySlug = 'pickles';
+
+    	$product_pickles = Product::select('products.*', 'sub_categories.name as subcategory_name')
+    					->join('sub_categories', 'products.sub_category_id', '=', 'sub_categories.id')
+    					->where('sub_categories.slug', $subcategorySlug)
+    					->get();
+
+    	return view('front.productPage.pickles', compact('product_pickless'));
+    }
+
+    public function powderMilk(){
+
+    	$subcategorySlug = 'powder-milk';
+
+    	$product_powderMilk = Product::select('products.*', 'sub_categories.name as subcategory_name')
+    					->join('sub_categories', 'products.sub_category_id', '=', 'sub_categories.id')
+    					->where('sub_categories.slug', $subcategorySlug)
+    					->get();
+
+    	return view('front.productPage.powder_milk', compact('product_powderMilk'));
+    }
+
+    public function liquidMilk(){
+
+    	$subcategorySlug = 'liquid-uht-milk';
+
+    	$product_liquidMilk = Product::select('products.*', 'sub_categories.name as subcategory_name')
+    					->join('sub_categories', 'products.sub_category_id', '=', 'sub_categories.id')
+    					->where('sub_categories.slug', $subcategorySlug)
+    					->get();
+
+    	return view('front.productPage.liquid_milk', compact('product_liquidMilk'));
+    }
+
+    public function sweets(){
+
+    	$subcategorySlug = 'sweets';
+
+    	$product_sweets = Product::select('products.*', 'sub_categories.name as subcategory_name')
+    					->join('sub_categories', 'products.sub_category_id', '=', 'sub_categories.id')
+    					->where('sub_categories.slug', $subcategorySlug)
+    					->get();
+
+    	return view('front.productPage.sweets', compact('product_sweets'));
+    }
+
+    public function condensedMilk(){
+
+    	$subcategorySlug = 'condensed-milk';
+
+    	$product_condensedMilk = Product::select('products.*', 'sub_categories.name as subcategory_name')
+    					->join('sub_categories', 'products.sub_category_id', '=', 'sub_categories.id')
+    					->where('sub_categories.slug', $subcategorySlug)
+    					->get();
+
+    	return view('front.productPage.condensed_milk', compact('product_condensedMilk'));
+    }
+
+    public function eggs(){
+
+    	$subcategorySlug = 'eggs';
+
+    	$product_eggs = Product::select('products.*', 'sub_categories.name as subcategory_name')
+    					->join('sub_categories', 'products.sub_category_id', '=', 'sub_categories.id')
+    					->where('sub_categories.slug', $subcategorySlug)
+    					->get();
+
+    	return view('front.productPage.eggs', compact('product_eggs'));
+    }
+
+    public function bread(){
+
+    	$subcategorySlug = 'breads';
+
+    	$product_bread = Product::select('products.*', 'sub_categories.name as subcategory_name')
+    					->join('sub_categories', 'products.sub_category_id', '=', 'sub_categories.id')
+    					->where('sub_categories.slug', $subcategorySlug)
+    					->get();
+
+    	return view('front.productPage.bread', compact('product_bread'));
+    }
+
+    public function teaCoffee(){
+
+    	$subcategorySlug = 'tea-&-coffee';
+
+    	$product_teaCoffee = Product::select('products.*', 'sub_categories.name as subcategory_name')
+    					->join('sub_categories', 'products.sub_category_id', '=', 'sub_categories.id')
+    					->where('sub_categories.slug', $subcategorySlug)
+    					->get();
+
+    	return view('front.productPage.tea_coffee', compact('product_teaCoffee'));
+    }
 }

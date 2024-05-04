@@ -48,6 +48,17 @@ Route::get('/ready-mix', [FrontHomeController::class, 'readyMix'])->name('front.
 Route::get('/shemai-suji', [FrontHomeController::class, 'shemaiSuji'])->name('front.shemai.suji');
 Route::get('/oil', [FrontHomeController::class, 'oil'])->name('front.oil');
 Route::get('/ghee', [FrontHomeController::class, 'ghee'])->name('front.ghee');
+Route::get('/tomato-sauces', [FrontHomeController::class, 'tomatoSauces'])->name('front.tomato.sauces');
+Route::get('/cooking-sauces', [FrontHomeController::class, 'cookingSauces'])->name('front.cooking.sauces');
+Route::get('/pickles', [FrontHomeController::class, 'pickles'])->name('front.pickles');
+Route::get('/powder-milk', [FrontHomeController::class, 'powderMilk'])->name('front.powder.milk');
+Route::get('/liquid-milk', [FrontHomeController::class, 'liquidMilk'])->name('front.liquid.milk');
+Route::get('/sweets', [FrontHomeController::class, 'sweets'])->name('front.sweets');
+Route::get('/condensed-milk', [FrontHomeController::class, 'condensedMilk'])->name('front.condensed.milk');
+Route::get('/egg', [FrontHomeController::class, 'eggs'])->name('front.eggs');
+Route::get('/bread', [FrontHomeController::class, 'bread'])->name('front.bread');
+Route::get('/tea-coffee', [FrontHomeController::class, 'teaCoffee'])->name('front.tea.coffee');
+
 
 
 

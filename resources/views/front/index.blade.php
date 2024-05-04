@@ -682,8 +682,8 @@
                                                             <div class="wrap-custom-menu vertical-menu">
                                                                 <h4 class="menu-title">Sauces</h4>
                                                                 <ul class="menu">
-                                                                    <li><a href="#">Tomato Sauces</a></li>
-                                                                    <li><a href="#">Cooking Sauces</a></li>
+                                                                    <li><a href="{{ route('front.tomato.sauces')}}">Tomato Sauces</a></li>
+                                                                    <li><a href="{{ route('front.cooking.sauces')}}">Cooking Sauces</a></li>
                                                                 </ul>
                                                             </div>
                                                         </div>
@@ -691,7 +691,7 @@
                                                             <div class="wrap-custom-menu vertical-menu">
                                                                 <h4 class="menu-title">Pickles</h4>
                                                                 <ul class="menu">
-                                                                    <li><a href="#">Pickles</a></li>
+                                                                    <li><a href="{{ route('front.pickles')}}">Pickles</a></li>
                                                                 </ul>
                                                             </div>
                                                         </div>
@@ -715,10 +715,10 @@
                                                             <div class="wrap-custom-menu vertical-menu">
                                                                 <h4 class="menu-title">Dairy</h4>
                                                                 <ul class="menu">
-                                                                    <li><a href="#">Powder Milk</a></li>
-                                                                    <li><a href="#">Liquid UHT Milk</a></li>
-                                                                    <li><a href="#">Sweets</a></li>
-                                                                    <li><a href="#">Condensed Milk</a></li>
+                                                                    <li><a href="{{ route('front.powder.milk')}}">Powder Milk</a></li>
+                                                                    <li><a href="{{ route('front.liquid.milk')}}">Liquid UHT Milk</a></li>
+                                                                    <li><a href="{{ route('front.sweets')}}">Sweets</a></li>
+                                                                    <li><a href="{{ route('front.condensed.milk')}}">Condensed Milk</a></li>
                                                                 </ul>
                                                             </div>
                                                         </div>
@@ -726,7 +726,7 @@
                                                             <div class="wrap-custom-menu vertical-menu">
                                                                 <h4 class="menu-title">Eggs</h4>
                                                                 <ul class="menu">
-                                                                    <li><a href="#">Eggs</a></li>
+                                                                    <li><a href="{{ route('front.eggs')}}">Eggs</a></li>
                                                                 </ul>
                                                             </div>
                                                         </div>
@@ -750,9 +750,9 @@
                                                             <div class="wrap-custom-menu vertical-menu">
                                                                 <h4 class="menu-title">Breakfast</h4>
                                                                 <ul class="menu">
-                                                                    <li><a href="#">Eggs</a></li>
-                                                                    <li><a href="#">Breads</a></li>
-                                                                    <li><a href="#">Tea & Coffee</a></li>
+                                                                    <li><a href="{{ route('front.eggs')}}">Eggs</a></li>
+                                                                    <li><a href="{{ route('front.bread')}}">Breads</a></li>
+                                                                    <li><a href="{{ route('front.tea.coffee')}}">Tea & Coffee</a></li>
                                                                     <li><a href="#">Honey</a></li>
                                                                     <li><a href="#">Dips Spreads Syrups</a></li>
                                                                 </ul>
