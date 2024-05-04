@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shopping Cart</title>
+  <style>
+    /* CSS styles */
+    .shopping-cart {
+      max-width: 600px;
+      margin: 20px auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      font-family: Arial, sans-serif;
+    }
+
+    .cart-item {
+      border-bottom: 1px solid #ccc;
+      padding: 10px 0;
+    }
+
+    .cart-item:last-child {
+      border-bottom: none;
+    }
+
+    .cart-item h4 {
+      margin: 5px 0;
+    }
+
+    .total {
+      text-align: right;
+      margin-top: 10px;
+    }
+
+    .btn {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    .btn:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <div class="shopping-cart">
+    <h2>সপিং কার্ট</h2>
+    <div class="cart-list" id="cart-list">
+      <!-- Product cards will be dynamically added here -->
+    </div>
+    <div class="total">
+      <h3>Total: <span id="total-price">0</span> টাকা</h3>
+    </div>
+    <button class="btn" id="add-product-btn">Add Product</button>
+  </div>
+
+  <script>
+    // Sample product data
+    const products = [
+      { name: 'পেনসিল', price: 10 },
+      { name: 'ক্লিপার', price: 20 },
+      { name: 'নোটবুক', price: 50 }
+    ];
+
+    document.addEventListener('DOMContentLoaded', function () {
+      const cartList = document.getElementById('cart-list');
+      const totalPriceElement = document.getElementById('total-price');
+      const addProductBtn = document.getElementById('add-product-btn');
+
+      // Function to render product cards
+      function renderProducts() {
+        cartList.innerHTML = '';
+
+        let totalPrice = 0;
+
+        products.forEach(product => {
+          const card = document.createElement('div');
+          card.classList.add('cart-item');
+
+          card.innerHTML = `
+            <h4>${product.name}</h4>
+            <p>মূল্য: ${product.price} টাকা</p>
+          `;
+
+          cartList.appendChild(card);
+        });
+
+        totalPriceElement.innerText = totalPrice;
+      }
+
+      // Initial rendering
+      renderProducts();
+
+      // Event listener for add product button
+      addProductBtn.addEventListener('click', function () {
+        // Simulating adding a product
+        const newProduct = { name: 'নতুন প্রোডাক্ট', price: Math.floor(Math.random() * 100) + 1 };
+        products.push(newProduct);
+        renderProducts();
+      });
+    });
+  </script>
+</body>
+</html>
