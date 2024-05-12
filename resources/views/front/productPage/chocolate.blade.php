@@ -4,7 +4,7 @@
 @section('hero_section')
 
 	<div class="hero-section hero-background">
-        <h1 class="page-title">Meat</h1>
+        <h1 class="page-title">Chocolates</h1>
     </div>
 
 @endsection
@@ -16,8 +16,8 @@
         <nav class="biolife-nav">
             <ul>
                 <li class="nav-item"><a href="index-2.html" class="permal-link">Home</a></li>
-                <li class="nav-item"><a href="#" class="permal-link">Meat & Fish</a></li>
-                <li class="nav-item"><span class="current-page">Meat</span></li>
+                <li class="nav-item"><a href="#" class="permal-link">Breakfast</a></li>
+                <li class="nav-item"><span class="current-page">Chocolates</span></li>
             </ul>
         </nav>
     </div>
@@ -91,7 +91,7 @@
 
                         <div class="row">
                             <ul class="products-list">
-                                @foreach($product_meat as $product)
+                                @foreach($product_chocolate as $product)
                                 <li class="product-item col-lg-4 col-md-4 col-sm-4 col-xs-6">
                                     <div class="contain-product layout-default">
                                         <div class="product-thumb">

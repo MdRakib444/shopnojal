@@ -101,7 +101,7 @@
 
                         <div class="row">
                             <ul class="products-list">
-                                @foreach($product_fruit as $product)
+                                @foreach($products as $product)
                                 <li class="product-item col-lg-4 col-md-4 col-sm-4 col-xs-6">
                                     <div class="contain-product layout-default">
                                         <div class="product-thumb">

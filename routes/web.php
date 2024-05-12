@@ -23,42 +23,6 @@ use Illuminate\Http\Request;
 |
 */
 
-/*
-		##########################################
-		########### Front End Route ##############
-		##########################################
-*/
-
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
-Route::get('/', [FrontHomeController::class, 'index'])->name('front.home');
-Route::get('/vegetable', [FrontHomeController::class, 'vegetable'])->name('front.vegetable');
-Route::get('/fruits', [FrontHomeController::class, 'fruit'])->name('front.fruits');
-Route::get('/fish', [FrontHomeController::class, 'fish'])->name('front.fish');
-Route::get('/meat', [FrontHomeController::class, 'meat'])->name('front.meat');
-Route::get('/premium-meat', [FrontHomeController::class, 'premium_meat'])->name('front.premium.meat');
-Route::get('/premium-fish', [FrontHomeController::class, 'premium_fish'])->name('front.premium.fish');
-Route::get('/spices', [FrontHomeController::class, 'spices'])->name('front.spices');
-Route::get('/salt-sugar', [FrontHomeController::class, 'saltSugar'])->name('front.salt.sugar');
-Route::get('/rice', [FrontHomeController::class, 'rice'])->name('front.rice');
-Route::get('/dal-lentis', [FrontHomeController::class, 'dal'])->name('front.dal.lentis');
-Route::get('/ready-mix', [FrontHomeController::class, 'readyMix'])->name('front.ready.mix');
-Route::get('/shemai-suji', [FrontHomeController::class, 'shemaiSuji'])->name('front.shemai.suji');
-Route::get('/oil', [FrontHomeController::class, 'oil'])->name('front.oil');
-Route::get('/ghee', [FrontHomeController::class, 'ghee'])->name('front.ghee');
-Route::get('/tomato-sauces', [FrontHomeController::class, 'tomatoSauces'])->name('front.tomato.sauces');
-Route::get('/cooking-sauces', [FrontHomeController::class, 'cookingSauces'])->name('front.cooking.sauces');
-Route::get('/pickles', [FrontHomeController::class, 'pickles'])->name('front.pickles');
-Route::get('/powder-milk', [FrontHomeController::class, 'powderMilk'])->name('front.powder.milk');
-Route::get('/liquid-milk', [FrontHomeController::class, 'liquidMilk'])->name('front.liquid.milk');
-Route::get('/sweets', [FrontHomeController::class, 'sweets'])->name('front.sweets');
-Route::get('/condensed-milk', [FrontHomeController::class, 'condensedMilk'])->name('front.condensed.milk');
-Route::get('/egg', [FrontHomeController::class, 'eggs'])->name('front.eggs');
-Route::get('/bread', [FrontHomeController::class, 'bread'])->name('front.bread');
-Route::get('/tea-coffee', [FrontHomeController::class, 'teaCoffee'])->name('front.tea.coffee');
-
 
 
 
@@ -139,3 +103,16 @@ Route::group(['prefix'=> 'admin'],function(){
 
 	});
 });
+
+/*
+		##########################################
+		########### Front End Route ##############
+		##########################################
+*/
+
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+Route::get('/', [FrontHomeController::class, 'index'])->name('front.home');
+Route::get('/{categorySlug?}/{subCategorySlug?}/{brandSlug?}', [FrontHomeController::class, 'products'])->name('front.product');

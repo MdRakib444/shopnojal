@@ -53,7 +53,13 @@
 										@foreach($products as $key=> $product)
 										<tr>
 											<td>{{$key+1}}</td>
-											<td><img src="img/product-1.jpg" class="img-thumbnail" width="50" ></td>
+											<td>
+												@if($product->productImage)
+            										<img src="{{ asset('front_asset/assets/images/product/' . $product->productImage->image) }}" class="img-thumbnail" width="50">
+        										@else
+													No Image
+        										@endif
+											</td>
 											<td><a href="#">{{$product->title}}</a></td>
 											<td>{{$product->price}}</td>
 											<td>{{$product->qty}}</td>

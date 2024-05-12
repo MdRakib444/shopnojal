@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Validator;
 
 class FrontHomeController extends Controller
 {
+    
     public function index(){
 
     	$categories = Categorie::all();
@@ -28,7 +29,7 @@ class FrontHomeController extends Controller
 		
 		$product_vege = Product::select('products.*', 'sub_categories.name as subcategory_name')
    					 ->join('sub_categories', 'products.sub_category_id', '=', 'sub_categories.id')
-   					 ->where('sub_categories.slug', $subcategorySlug)
+   					 ->where('products.is_featured', 'YES')
     				 ->get();
 
     	$subcategorySlug = 'fish';
@@ -51,292 +52,55 @@ class FrontHomeController extends Controller
     	return view('front.index', compact('products','product_vege', 'product_fish', 'product_meat' , 'categories'));
     }
 
-    public function vegetable(){
+    public function products(Request $request, $categorySlug = null, $subCategorySlug = null, $brandSlug = null){
+    // Debug: Log route parameters
+    \Log::info("Category Slug: $categorySlug, Subcategory Slug: $subCategorySlug, Brand Slug: $brandSlug");
 
-    	$subcategorySlug = 'fresh-vegetables';
+    // Fetch all brands
+    $brands = Brand::where('status', 1)->get();
 
-		
-		$product_vege = Product::select('products.*', 'sub_categories.name as subcategory_name')
-   					 ->join('sub_categories', 'products.sub_category_id', '=', 'sub_categories.id')
-   					 ->where('sub_categories.slug', $subcategorySlug)
-    				 ->get();
+    // Fetch products with their associated subcategories
+    $products = Product::with('subCategory')->where('status', 1);
 
-    	return view('front.productPage.vegetable', compact('product_vege'));
+    // Debug: Log SQL query
+    \Log::info($products->toSql());
+
+    // Filter products by category if provided
+    if (!empty($categorySlug)) {
+        $category = Categorie::where('slug', $categorySlug)->first();
+        if ($category) {
+            $products->where('category_id', $category->id);
+        }
     }
 
-    public function fruit(){
-    	$subcategorySlug = 'fresh-fruits';
-
-		
-		$product_fruit = Product::select('products.*', 'sub_categories.name as subcategory_name')
-   					 ->join('sub_categories', 'products.sub_category_id', '=', 'sub_categories.id')
-   					 ->where('sub_categories.slug', $subcategorySlug)
-    				 ->get();
-
-    	return view('front.productPage.fruits', compact('product_fruit'));
+    // Filter products by subcategory if provided
+    if (!empty($subCategorySlug)) {
+        // Assuming the subcategory slug is unique across all categories
+        $subCategory = SubCategory::where('slug', $subCategorySlug)->first();
+        if ($subCategory) {
+            $products->where('sub_category_id', $subCategory->id);
+        }
     }
 
-    public function fish(){
-    	$subcategorySlug = 'fish';
-
-		
-		$product_fish = Product::select('products.*', 'sub_categories.name as subcategory_name')
-   					 ->join('sub_categories', 'products.sub_category_id', '=', 'sub_categories.id')
-   					 ->where('sub_categories.slug', $subcategorySlug)
-    				 ->get();
-
-    	return view('front.productPage.fish', compact('product_fish'));
+    // Filter products by brand if provided
+    if (!empty($brandSlug)) {
+        // Corrected to query the Brand model
+        $brand = Brand::where('slug', $brandSlug)->first();
+        if ($brand) {
+            $products->where('brand_id', $brand->id);
+        }
     }
 
-    public function meat(){
+    // Debug: Log SQL query after filtering
+    \Log::info($products->toSql());
 
-    	$subcategorySlug = 'meat';
+    // Retrieve the filtered products
+    $products = $products->orderBy('id', 'DESC')->get();
 
-    	$product_meat = Product::select('products.*', 'sub_categories.name as subcategory_name')
-    					->join('sub_categories', 'products.sub_category_id', '=', 'sub_categories.id')
-    					->where('sub_categories.slug', $subcategorySlug)
-    					->get();
+    // Pass the data to the view
+    return view('front.productPage.vegetable', compact('products', 'category', 'subCategory', 'brands'));
+}
 
-    	return view('front.productPage.meat', compact('product_meat'));
-    }
 
-    public function premium_meat(){
 
-    	$subcategorySlug = 'premium-meat';
-    	$product_prmeat = Product::select('products.*', 'sub_categories.name as subcategory_name')
-    					->join('sub_categories', 'products.sub_category_id', '=', 'sub_categories.id')
-    					->where('sub_categories.slug', $subcategorySlug)
-    					->get();
-
-    	return view('front.productPage.pre_meat', compact('product_prmeat'));
-    }
-
-    public function premium_fish(){
-
-    	$subcategorySlug = 'premium_fish';
-    	$product_prefish = Product::select('products.*', 'sub_categories.name as subcategory_name')
-    					->join('sub_categories', 'products.sub_category_id' , '=', 'sub_categories.id')
-    					->where('sub_categories.slug', $subcategorySlug)
-    					->get();
-
-    	return view('front.productPage.pre_fish', compact('product_prefish'));
-    }
-
-    public function spices(){
-
-    	$subcategorySlug = 'spices';
-
-    	$product_spices = Product::select('products.*', 'sub_categories.name as subcategory_name')
-    					->join('sub_categories', 'products.sub_category_id', '=', 'sub_categories.id')
-    					->where('sub_categories.slug', $subcategorySlug)
-    					->get();
-
-    	return view('front.productPage.spices', compact('product_spices'));
-    }
-
-    public function saltSugar(){
-
-
-    	$subcategorySlug = 'salt-&-sugar';
-
-    	$product_saltSugar = Product::select('products.*', 'sub_categories.name as subcategory_name')
-    						->join('sub_categories', 'products.sub_category_id', '=', 'sub_categories.id')
-    						->where('sub_categories.slug', $subcategorySlug)
-    						->get();
-
-    	return view('front.productPage.salt_sugar', compact('product_saltSugar'));
-    }
-
-    public function rice(){
-
-    	$subcategorySlug = 'rice';
-
-    	$product_rice = Product::select('products.*', 'sub_categories.name as subcategory_name')
-    					->join('sub_categories', 'products.sub_category_id', '=', 'sub_categories.id')
-    					->where('sub_categories.slug', $subcategorySlug)
-    					->get();
-
-    	return view('front.productPage.rice', compact('product_rice'));
-    }
-
-    public function dal(){
-
-    	$subcategorySlug = 'dal-or-lentis';
-
-    	$product_dal = Product::select('products.*', 'sub_categories.name as subcategory_name')
-    					->join('sub_categories', 'products.sub_category_id', '=', 'sub_categories.id')
-    					->where('sub_categories.slug', $subcategorySlug)
-    					->get();
-
-    	return view('front.productPage.dal', compact('product_dal'));
-    }
-
-    public function readyMix(){
-
-    	$subcategorySlug = 'ready-mix';
-
-    	$product_readyMix = Product::select('products.*', 'sub_categories.name as subcategory_name')
-    					->join('sub_categories', 'products.sub_category_id', '=', 'sub_categories.id')
-    					->where('sub_categories.slug', $subcategorySlug)
-    					->get();
-
-    	return view('front.productPage.ready_mix', compact('product_readyMix'));
-    }
-
-    public function shemaiSuji(){
-
-    	$subcategorySlug = 'shemai-&-suji';
-
-    	$product_shemaiSuji = Product::select('products.*', 'sub_categories.name as subcategory_name')
-    					->join('sub_categories', 'products.sub_category_id', '=', 'sub_categories.id')
-    					->where('sub_categories.slug', $subcategorySlug)
-    					->get();
-
-    	return view('front.productPage.shemai_suji', compact('product_shemaiSuji'));
-    }
-
-    public function oil(){
-
-    	$subcategorySlug = 'oil';
-
-    	$product_oil = Product::select('products.*', 'sub_categories.name as subcategory_name')
-    					->join('sub_categories', 'products.sub_category_id', '=', 'sub_categories.id')
-    					->where('sub_categories.slug', $subcategorySlug)
-    					->get();
-
-    	return view('front.productPage.oil', compact('product_oil'));
-    }
-
-
-    public function ghee(){
-
-    	$subcategorySlug = 'ghee';
-
-    	$product_ghee = Product::select('products.*', 'sub_categories.name as subcategory_name')
-    					->join('sub_categories', 'products.sub_category_id', '=', 'sub_categories.id')
-    					->where('sub_categories.slug', $subcategorySlug)
-    					->get();
-
-    	return view('front.productPage.ghee', compact('product_ghee'));
-    }
-
-    public function tomatoSauces(){
-
-    	$subcategorySlug = 'tomato-sauces';
-
-    	$product_tomatoSauces = Product::select('products.*', 'sub_categories.name as subcategory_name')
-    					->join('sub_categories', 'products.sub_category_id', '=', 'sub_categories.id')
-    					->where('sub_categories.slug', $subcategorySlug)
-    					->get();
-
-    	return view('front.productPage.tomato_sauces', compact('product_tomatoSauces'));
-    }
-
-    public function cookingSauces(){
-
-    	$subcategorySlug = 'cooking-sauces';
-
-    	$product_cookingSauces = Product::select('products.*', 'sub_categories.name as subcategory_name')
-    					->join('sub_categories', 'products.sub_category_id', '=', 'sub_categories.id')
-    					->where('sub_categories.slug', $subcategorySlug)
-    					->get();
-
-    	return view('front.productPage.cooking_sauces', compact('product_cookingSauces'));
-    }
-
-    public function pickles(){
-
-    	$subcategorySlug = 'pickles';
-
-    	$product_pickles = Product::select('products.*', 'sub_categories.name as subcategory_name')
-    					->join('sub_categories', 'products.sub_category_id', '=', 'sub_categories.id')
-    					->where('sub_categories.slug', $subcategorySlug)
-    					->get();
-
-    	return view('front.productPage.pickles', compact('product_pickless'));
-    }
-
-    public function powderMilk(){
-
-    	$subcategorySlug = 'powder-milk';
-
-    	$product_powderMilk = Product::select('products.*', 'sub_categories.name as subcategory_name')
-    					->join('sub_categories', 'products.sub_category_id', '=', 'sub_categories.id')
-    					->where('sub_categories.slug', $subcategorySlug)
-    					->get();
-
-    	return view('front.productPage.powder_milk', compact('product_powderMilk'));
-    }
-
-    public function liquidMilk(){
-
-    	$subcategorySlug = 'liquid-uht-milk';
-
-    	$product_liquidMilk = Product::select('products.*', 'sub_categories.name as subcategory_name')
-    					->join('sub_categories', 'products.sub_category_id', '=', 'sub_categories.id')
-    					->where('sub_categories.slug', $subcategorySlug)
-    					->get();
-
-    	return view('front.productPage.liquid_milk', compact('product_liquidMilk'));
-    }
-
-    public function sweets(){
-
-    	$subcategorySlug = 'sweets';
-
-    	$product_sweets = Product::select('products.*', 'sub_categories.name as subcategory_name')
-    					->join('sub_categories', 'products.sub_category_id', '=', 'sub_categories.id')
-    					->where('sub_categories.slug', $subcategorySlug)
-    					->get();
-
-    	return view('front.productPage.sweets', compact('product_sweets'));
-    }
-
-    public function condensedMilk(){
-
-    	$subcategorySlug = 'condensed-milk';
-
-    	$product_condensedMilk = Product::select('products.*', 'sub_categories.name as subcategory_name')
-    					->join('sub_categories', 'products.sub_category_id', '=', 'sub_categories.id')
-    					->where('sub_categories.slug', $subcategorySlug)
-    					->get();
-
-    	return view('front.productPage.condensed_milk', compact('product_condensedMilk'));
-    }
-
-    public function eggs(){
-
-    	$subcategorySlug = 'eggs';
-
-    	$product_eggs = Product::select('products.*', 'sub_categories.name as subcategory_name')
-    					->join('sub_categories', 'products.sub_category_id', '=', 'sub_categories.id')
-    					->where('sub_categories.slug', $subcategorySlug)
-    					->get();
-
-    	return view('front.productPage.eggs', compact('product_eggs'));
-    }
-
-    public function bread(){
-
-    	$subcategorySlug = 'breads';
-
-    	$product_bread = Product::select('products.*', 'sub_categories.name as subcategory_name')
-    					->join('sub_categories', 'products.sub_category_id', '=', 'sub_categories.id')
-    					->where('sub_categories.slug', $subcategorySlug)
-    					->get();
-
-    	return view('front.productPage.bread', compact('product_bread'));
-    }
-
-    public function teaCoffee(){
-
-    	$subcategorySlug = 'tea-&-coffee';
-
-    	$product_teaCoffee = Product::select('products.*', 'sub_categories.name as subcategory_name')
-    					->join('sub_categories', 'products.sub_category_id', '=', 'sub_categories.id')
-    					->where('sub_categories.slug', $subcategorySlug)
-    					->get();
-
-    	return view('front.productPage.tea_coffee', compact('product_teaCoffee'));
-    }
 }

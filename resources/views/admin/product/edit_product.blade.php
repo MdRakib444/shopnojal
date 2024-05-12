@@ -19,7 +19,7 @@
 				<!-- Main content -->
 				<section class="content">
 					<!-- Default box -->
-					<form action="{{ route('admin.update.product')}}" method="POST">
+					<form action="{{ route('admin.update.product')}}" method="POST" enctype="multipart/form-data">
 					@csrf
 					<div class="container-fluid">
                         <input type="hidden" value="{{$product->id}}" name="id">
@@ -51,13 +51,12 @@
                                 </div>
                                 <div class="card mb-3">
                                     <div class="card-body">
-                                        <h2 class="h4 mb-3">Media</h2>								
-                                        <div id="image" class="dropzone dz-clickable">
-                                            <div class="dz-message needsclick">    
-                                                <br>Drop files here or click to upload.<br><br>                                            
-                                            </div>
+                                        <h2 class="h4 mb-3">Media</h2>
+                                        <div class="input-group mb-3">
+                                            <input type="file" name="image[]" class="form-control" id="inputGroupFile02" multiple>
+                                            <label class="input-group-text" for="inputGroupFile02">Upload</label>
                                         </div>
-                                    </div>	                                                                      
+                                    </div>
                                 </div>
                                 <div class="card mb-3">
                                     <div class="card-body">

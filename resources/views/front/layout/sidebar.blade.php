@@ -1,6 +1,6 @@
 
                 <!-- Sidebar -->
-                <aside id="sidebar" class="sidebar col-lg-3 col-md-4 col-sm-12 col-xs-12">
+                <!-- <aside id="sidebar" class="sidebar col-lg-3 col-md-4 col-sm-12 col-xs-12">
                     <div class="biolife-mobile-panels">
                         <span class="biolife-current-panel-title">Sidebar</span>
                         <a class="biolife-close-btn" href="#" data-object="open-mobile-filter">&times;</a>
@@ -15,21 +15,9 @@
                                     <li class="cat-list-item"><a href="#" class="cat-link">Dried Fruits</a></li>
                                 </ul>
                             </div>
-                        </div>
+                        </div> -->
 
-                        <div class="widget biolife-filter">
-                            <h4 class="wgt-title">Shipping & Pickup</h4>
-                            <div class="wgt-content">
-                                <ul class="cat-list">
-                                    <li class="cat-list-item"><a href="#" class="cat-link">Show all</a></li>
-                                    <li class="cat-list-item"><a href="#" class="cat-link">2- Day shipping</a></li>
-                                    <li class="cat-list-item"><a href="#" class="cat-link">Shop to Home</a></li>
-                                    <li class="cat-list-item"><a href="#" class="cat-link">Free Pickup</a></li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <div class="widget price-filter biolife-filter">
+                        <!-- <div class="widget price-filter biolife-filter">
                             <h4 class="wgt-title">Price</h4>
                             <div class="wgt-content">
                                 <div class="frm-contain">
@@ -51,20 +39,22 @@
                                     <li class="check-list-item"><a href="#" class="check-link">$15 - $20</a></li>
                                 </ul>
                             </div>
-                        </div>
+                        </div> -->
 
                         <div class="widget biolife-filter">
                             <h4 class="wgt-title">Brand</h4>
                             <div class="wgt-content">
                                 <ul class="check-list multiple">
-                                    <li class="check-list-item"><a href="#" class="check-link">Great Value Organic</a></li>
-                                    <li class="check-list-item"><a href="#" class="check-link">Plum Organic</a></li>
-                                    <li class="check-list-item"><a href="#" class="check-link">Shop to Home</a></li>
+                                    @if(getBrand()->isNotEmpty())
+                                        @foreach(getBrand() as $brand)
+                                            <li class="check-list-item"><a href="{{ route('front.product', [$brand->slug] )}}" class="check-link">{{$brand->name}}</a></li>
+                                        @endforeach
+                                    @endif
                                 </ul>
                             </div>
                         </div>
 
-                        <div class="widget biolife-filter">
+                        <!-- <div class="widget biolife-filter">
                             <h4 class="wgt-title">Color</h4>
                             <div class="wgt-content">
                                 <ul class="color-list">
@@ -74,9 +64,9 @@
                                     <li class="color-item"><a href="#" class="c-link"><span class="symbol hex-code color-03"></span>Other</a></li>
                                 </ul>
                             </div>
-                        </div>
+                        </div> -->
 
-                        <div class="widget biolife-filter">
+                        <!-- <div class="widget biolife-filter">
                             <h4 class="wgt-title">Popular Size</h4>
                             <div class="wgt-content">
                                 <ul class="check-list bold multiple">
@@ -96,9 +86,9 @@
                                     <li class="check-list-item"><a href="#" class="check-link">10 to 15</a></li>
                                 </ul>
                             </div>
-                        </div>
+                        </div> -->
 
-                        <div class="widget biolife-filter">
+                        <!-- <div class="widget biolife-filter">
                             <h4 class="wgt-title">Recently Viewed</h4>
                             <div class="wgt-content">
                                 <ul class="products">
@@ -155,9 +145,9 @@
                                     </li>
                                 </ul>
                             </div>
-                        </div>
+                        </div> -->
 
-                        <div class="widget biolife-filter">
+                        <!-- <div class="widget biolife-filter">
                             <h4 class="wgt-title">Product Tags</h4>
                             <div class="wgt-content">
                                 <ul class="tag-cloud">
@@ -168,7 +158,7 @@
                                     <li class="tag-item"><a href="#" class="tag-link">Dried Organic</a></li>
                                 </ul>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
 
                 </aside>

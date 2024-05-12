@@ -4,7 +4,12 @@
 @section('hero_section')
 
 	<div class="hero-section hero-background">
-        <h1 class="page-title">Fresh Vegetable</h1>
+        <h1 class="page-title">
+            @if(isset($subCategory))
+             {{$subCategory->name}} 
+            @endif
+        
+        </h1>
     </div>
 
 @endsection
@@ -16,8 +21,21 @@
         <nav class="biolife-nav">
             <ul>
                 <li class="nav-item"><a href="index-2.html" class="permal-link">Home</a></li>
-                <li class="nav-item"><a href="#" class="permal-link">Fruit & Vegetable</a></li>
-                <li class="nav-item"><span class="current-page">Vegetable</span></li>
+                <li class="nav-item">
+                    <a href="#" class="permal-link">
+                        @if(isset($category))
+
+                            {{$category->name}} 
+                        @endif
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <span class="current-page">
+                        @if(isset($subCategory))
+                            {{$subCategory->name}} 
+                        @endif
+                    </span>
+                </li>
             </ul>
         </nav>
     </div>
@@ -101,12 +119,16 @@
 
                         <div class="row">
                             <ul class="products-list">
-                                @foreach($product_vege as $product)
+                                @foreach($products as $product)
                                 <li class="product-item col-lg-4 col-md-4 col-sm-4 col-xs-6">
                                     <div class="contain-product layout-default">
                                         <div class="product-thumb">
                                             <a href="#" class="link-to-product">
-                                                <img src="{{asset('front_asset/assets/images/products/p-22.jpg')}}" alt="dd" width="270" height="270" class="product-thumnail">
+                                                @if($product->productImage)
+                                                    <img src="{{ asset('front_asset/assets/images/product/' . $product->productImage->image) }}" alt="dd" width="270" height="270" class="product-thumnail">
+                                                @else
+                                                    No Image
+                                                @endif
                                             </a>
                                         </div>
                                         <div class="info">
@@ -114,10 +136,10 @@
                                             <h4 class="product-title"><a href="#" class="pr-name">{{$product->title}}</a></h4>
                                             <div class="price">
                                                 @if($product->compare_price != null)
-                                                <ins><span class="price-amount"><span class="currencySymbol">£</span>{{$product->compare_price}}</span></ins>
-                                                <del><span class="price-amount"><span class="currencySymbol">£</span>{{$product->price}}</span></del>
+                                                <ins><span class="price-amount"><span class="currencySymbol">৳</span>{{$product->compare_price}}</span></ins>
+                                                <del><span class="price-amount"><span class="currencySymbol">৳</span>{{$product->price}}</span></del>
                                                 @else
-                                                <ins><span class="price-amount"><span class="currencySymbol">£</span>{{$product->price}}</span></ins>
+                                                <ins><span class="price-amount"><span class="currencySymbol">৳</span>{{$product->price}}</span></ins>
 
                                                 @endif
 
