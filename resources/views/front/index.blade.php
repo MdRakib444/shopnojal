@@ -154,7 +154,7 @@
                                                 </li>
                                             </ul>
                                             <p class="btn-control">
-                                                <a href="#" class="btn view-cart">view cart</a>
+                                                <a href="{{ route('front.cart')}}" class="btn view-cart">view cart</a>
                                                 <a href="#" class="btn">checkout</a>
                                             </p>
                                         </div>
@@ -633,7 +633,7 @@
                                     <div class="contain-product layout-default">
                                         <div class="product-thumb">
                                             <a href="#" class="link-to-product">
-                                                <img src="{{ asset('front_asset/assets/images/products/p-22.jpg')}}" alt="Vegetables" width="270" height="270" class="product-thumnail">
+                                                <img src="{{ asset('front_asset/assets/images/product/'.$product->productImage->image)}}" alt="Vegetables" width="270" height="270" class="product-thumnail">
                                             </a>
                                             <a class="lookup btn_call_quickview" href="#"><i class="biolife-icon icon-search"></i></a>
                                         </div>
@@ -654,7 +654,7 @@
                                                 <p class="message">{{$product->description}}</p>
                                                 <div class="buttons">
                                                     <a href="#" class="btn wishlist-btn"><i class="fa fa-heart" aria-hidden="true"></i></a>
-                                                    <a href="#" class="btn add-to-cart-btn"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i>add to cart</a>
+                                                    <a href="javascript:void(0);" class="btn add-to-cart-btn"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i>add to cart</a>
                                                     <a href="#" class="btn compare-btn"><i class="fa fa-random" aria-hidden="true"></i></a>
                                                 </div>
                                             </div>

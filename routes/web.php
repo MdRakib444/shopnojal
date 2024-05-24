@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProductSubCategoryController;
 use App\Http\Controllers\front\FrontHomeController;
+use App\Http\Controllers\front\CartController;
 use Illuminate\Http\Request;
 
 
@@ -115,4 +116,7 @@ Route::group(['prefix'=> 'admin'],function(){
 // });
 
 Route::get('/', [FrontHomeController::class, 'index'])->name('front.home');
-Route::get('/{categorySlug?}/{subCategorySlug?}/{brandSlug?}', [FrontHomeController::class, 'products'])->name('front.product');
+Route::get('/cart', [CartController::class, 'cart'])->name('front.cart');
+// Route definition in web.php
+Route::post('/add-to-cart', [CartController::class, 'addToCart'])->name('front.addToCart');
+Route::get('/{categorySlug?}/{subCategorySlug?}', [FrontHomeController::class, 'products'])->name('front.product');

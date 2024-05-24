@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="{{ asset('front_asset/assets/css/slick.min.css')}}">
     <link rel="stylesheet" href="{{ asset('front_asset/assets/css/style.css')}}">
     <link rel="stylesheet" href="{{ asset('front_asset/assets/css/main-color04.css')}}">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 <body class="biolife-body">
 
@@ -242,7 +243,7 @@
                                                 </li>
                                             </ul>
                                             <p class="btn-control">
-                                                <a href="#" class="btn view-cart">view cart</a>
+                                                <a href="{{ route('front.cart')}}" class="btn view-cart">view cart</a>
                                                 <a href="#" class="btn">checkout</a>
                                             </p>
                                         </div>
@@ -276,35 +277,41 @@
                                 <span class="angle" data-tgleclass="fa fa-caret-down"><i class="fa fa-caret-up" aria-hidden="true"></i></span>
                             </div>
                             <div class="wrap-menu">
-                                    <ul class="menu clone-main-menu">
-                                       @if(getCategories()->isNotEmpty())
-                                        @foreach(getCategories() as $category)
-                                        <li class="menu-item menu-item-has-children has-megamenu">
-                                            <a href="#" class="menu-name" data-title="Vegetables"><i class="biolife-icon icon-broccoli-1"></i>{{$category->name}}</a>
-                                            <div class="wrap-megamenu lg-width-900 md-width-640 background-mega-01">
-                                                <div class="mega-content">
-                                                    <div class="row">
-                                                        <div class="col-lg-3 col-md-4 col-sm-12 xs-margin-bottom-25 md-margin-bottom-0">
-                                                            <div class="wrap-custom-menu vertical-menu">
-                                                                <h4 class="menu-title"></h4>
-                                                                <ul class="menu">
-                                                                    @if($category->sub_category->isNotEmpty())
-                                                                    @foreach($category->sub_category as $subCategory)
-                                                                    <li><a href="{{ route('front.product', $category->slug,$subCategory->slug )}}">{{ $subCategory->name}}</a></li>
-                                                                    @endforeach
-                                                                    @endif
-                                                                </ul>
-                                                            </div>
+                                <ul class="menu clone-main-menu">
+                                    @if(getCategories()->isNotEmpty())
+                                    @foreach(getCategories() as $category)
+                                    <li class="menu-item menu-item-has-children has-megamenu">
+                                        <a href="#" class="menu-name" data-title="Vegetables">
+                                            <i class="biolife-icon icon-broccoli-1"></i>{{ $category->name }}
+                                        </a>
+                                        <div class="wrap-megamenu lg-width-900 md-width-640 background-mega-01">
+                                            <div class="mega-content">
+                                                <div class="row">
+                                                     <div class="col-lg-3 col-md-4 col-sm-12 xs-margin-bottom-25 md-margin-bottom-0">
+                                                        <div class="wrap-custom-menu vertical-menu">
+                                                            <h4 class="menu-title"></h4>
+                                                            <ul class="menu">
+                                                                @if($category->sub_category->isNotEmpty())
+                                                                @foreach($category->sub_category as $subCategory)
+                                                                <li>
+                                                                    <a href="{{ route('front.product', ['categorySlug' => $category->slug, 'subCategorySlug' => $subCategory->slug]) }}">
+                                                                    {{ $subCategory->name }}
+                                                                    </a>
+                                                                </li>
+                                                                 @endforeach
+                                                                @endif
+                                                            </ul>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </li>
-                                        @endforeach
-                                       @endif
-                                       
-                                    </ul>
-                                </div>
+                                        </div>
+                                    </li>
+                                    @endforeach
+                                    @endif
+                                </ul>
+                            </div>
+
                         </div>
                     </div>
                     <div class="col-lg-9 col-md-8 padding-top-2px">
@@ -369,6 +376,14 @@
     <script src="{{ asset('front_asset/assets/js/slick.min.js')}}"></script>
     <script src="{{ asset('front_asset/assets/js/biolife.framework.js')}}"></script>
     <script src="{{ asset('front_asset/assets/js/functions.js')}}"></script>
+
+    <script type="text/javascript">
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+</script>
 
     <!-- custom js -->
     @yield('custom_js')

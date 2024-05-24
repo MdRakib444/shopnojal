@@ -52,18 +52,16 @@ class FrontHomeController extends Controller
     	return view('front.index', compact('products','product_vege', 'product_fish', 'product_meat' , 'categories'));
     }
 
-    public function products(Request $request, $categorySlug = null, $subCategorySlug = null, $brandSlug = null){
-    // Debug: Log route parameters
-    \Log::info("Category Slug: $categorySlug, Subcategory Slug: $subCategorySlug, Brand Slug: $brandSlug");
-
+    public function products(Request $request, $categorySlug = null, $subCategorySlug = null) {
     // Fetch all brands
     $brands = Brand::where('status', 1)->get();
 
     // Fetch products with their associated subcategories
     $products = Product::with('subCategory')->where('status', 1);
 
-    // Debug: Log SQL query
-    \Log::info($products->toSql());
+    // Initialize variables
+    $category = null;
+    $subCategory = null;
 
     // Filter products by category if provided
     if (!empty($categorySlug)) {
@@ -82,24 +80,13 @@ class FrontHomeController extends Controller
         }
     }
 
-    // Filter products by brand if provided
-    if (!empty($brandSlug)) {
-        // Corrected to query the Brand model
-        $brand = Brand::where('slug', $brandSlug)->first();
-        if ($brand) {
-            $products->where('brand_id', $brand->id);
-        }
-    }
-
-    // Debug: Log SQL query after filtering
-    \Log::info($products->toSql());
-
     // Retrieve the filtered products
     $products = $products->orderBy('id', 'DESC')->get();
 
     // Pass the data to the view
-    return view('front.productPage.vegetable', compact('products', 'category', 'subCategory', 'brands'));
+    return view('front.productPage.products', compact('products', 'category', 'subCategory', 'brands'));
 }
+
 
 
 

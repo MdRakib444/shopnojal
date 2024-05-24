@@ -4,7 +4,12 @@
 @section('hero_section')
 
 	<div class="hero-section hero-background">
-        <h1 class="page-title">Shopnojal Premium meat</h1>
+        <h1 class="page-title">
+            @if(isset($subCategory))
+             {{$subCategory->name}} 
+            @endif
+        
+        </h1>
     </div>
 
 @endsection
@@ -16,8 +21,21 @@
         <nav class="biolife-nav">
             <ul>
                 <li class="nav-item"><a href="index-2.html" class="permal-link">Home</a></li>
-                <li class="nav-item"><a href="#" class="permal-link">Meat & Fish</a></li>
-                <li class="nav-item"><span class="current-page">premium</span></li>
+                <li class="nav-item">
+                    <a href="#" class="permal-link">
+                        @if(isset($category))
+
+                            {{$category->name}} 
+                        @endif
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <span class="current-page">
+                        @if(isset($subCategory))
+                            {{$subCategory->name}} 
+                        @endif
+                    </span>
+                </li>
             </ul>
         </nav>
     </div>
@@ -64,6 +82,16 @@
                                                 <option value="br6">Brand fiveth</option>
                                             </select>
                                         </div>
+                                        <div data-title="Avalability:" class="selector-item">
+                                            <select name="ability" class="selector">
+                                                <option value="all">Availability</option>
+                                                <option value="vl2">Availability 1</option>
+                                                <option value="vl3">Availability 2</option>
+                                                <option value="vl4">Availability 3</option>
+                                                <option value="vl5">Availability 4</option>
+                                                <option value="vl6">Availability 5</option>
+                                            </select>
+                                        </div>
                                         <p class="btn-for-mobile"><button type="submit" class="btn-submit">Go</button></p>
                                     </form>
                                 </div>
@@ -82,8 +110,8 @@
                                         </select>
                                     </div>
                                     <div class="selector-item viewmode-selector">
-                                        <a href="#" class="viewmode grid-mode active"><i class="biolife-icon icon-grid"></i></a>
-                                        <a href="#" class="viewmode detail-mode"><i class="biolife-icon icon-list"></i></a>
+                                        <a href="category-grid-left-sidebar.html" class="viewmode grid-mode active"><i class="biolife-icon icon-grid"></i></a>
+                                        <a href="category-list-left-sidebar.html" class="viewmode detail-mode"><i class="biolife-icon icon-list"></i></a>
                                     </div>
                                 </div>
                             </div>
@@ -91,12 +119,16 @@
 
                         <div class="row">
                             <ul class="products-list">
-                                @foreach($product_prmeat as $product)
+                                @foreach($products as $product)
                                 <li class="product-item col-lg-4 col-md-4 col-sm-4 col-xs-6">
                                     <div class="contain-product layout-default">
                                         <div class="product-thumb">
                                             <a href="#" class="link-to-product">
-                                                <img src="{{asset('front_asset/assets/images/products/p-14.jpg')}}" alt="dd" width="270" height="270" class="product-thumnail">
+                                                @if($product->productImage)
+                                                    <img src="{{ asset('front_asset/assets/images/product/' . $product->productImage->image) }}" alt="dd" width="270" height="270" class="product-thumnail">
+                                                @else
+                                                    No Image
+                                                @endif
                                             </a>
                                         </div>
                                         <div class="info">
@@ -104,10 +136,10 @@
                                             <h4 class="product-title"><a href="#" class="pr-name">{{$product->title}}</a></h4>
                                             <div class="price">
                                                 @if($product->compare_price != null)
-                                                <ins><span class="price-amount"><span class="currencySymbol">£</span>{{$product->compare_price}}</span></ins>
-                                                <del><span class="price-amount"><span class="currencySymbol">£</span>{{$product->price}}</span></del>
+                                                <ins><span class="price-amount"><span class="currencySymbol">৳</span>{{$product->compare_price}}</span></ins>
+                                                <del><span class="price-amount"><span class="currencySymbol">৳</span>{{$product->price}}</span></del>
                                                 @else
-                                                <ins><span class="price-amount"><span class="currencySymbol">£</span>{{$product->price}}</span></ins>
+                                                <ins><span class="price-amount"><span class="currencySymbol">৳</span>{{$product->price}}</span></ins>
 
                                                 @endif
 
@@ -116,7 +148,7 @@
                                                 <p class="message">{{$product->description}}</p>
                                                 <div class="buttons">
                                                     <a href="#" class="btn wishlist-btn"><i class="fa fa-heart" aria-hidden="true"></i></a>
-                                                    <a href="#" class="btn add-to-cart-btn"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i>add to cart</a>
+                                                    <a href="javascript:void(0)" onclick="addToCart({{$product->id }})" class="btn add-to-cart-btn"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i>add to cart</a>
                                                     <a href="#" class="btn compare-btn"><i class="fa fa-random" aria-hidden="true"></i></a>
                                                 </div>
                                             </div>
@@ -149,6 +181,24 @@
 
 <!-- Main content -->
 @section('custom_js')
+
+    <script type="text/javascript">
+    function addToCart(id){
+        $.ajax({
+            url: '{{ route("front.addToCart") }}',
+            type: 'post',
+            data: {id: id},
+            dataType: 'json',
+            success: function(response){
+                // Handle success response
+            },
+            error: function(xhr, status, error) {
+                // Handle error response
+                console.error(xhr.responseText);
+            }
+        });
+    }
+</script>
 
 @endsection
 
